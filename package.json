@@ -1,0 +1,29 @@
+{
+  "name": "atomic-ambitions-core-service",
+  "version": "0.1.0",
+  "description": "Central service for the Atomic Ambitions platform.",
+  "main": "app.js",
+  "scripts": {
+    "test": "node --test test/**/*.test.js",
+    "start": "fastify start -l info app.js",
+    "dev": "fastify start -w -l info -P app.js"
+  },
+  "keywords": [
+    "nuclear energy",
+    "clean energy",
+    "abundant energy",
+    "atomic energy advocates",
+    "nuclear energy advocates"
+  ],
+  "author": "Nuclear Ambitions LLC",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^5.0.0",
+    "fastify-plugin": "^5.0.0",
+    "@fastify/autoload": "^6.0.0",
+    "@fastify/sensible": "^6.0.0",
+    "fastify-cli": "^7.4.0"
+  },
+  "devDependencies": {},
+  "packageManager": "pnpm@10.17.0"
+}
