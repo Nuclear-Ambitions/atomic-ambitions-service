@@ -10,8 +10,10 @@
   "license": "MIT",
   "main": "app.js",
   "scripts": {
+    "build": "tsc -p tsconfig.json",
     "test": "node --test test/**/*.test.js",
-    "start": "fastify start -l info src/app.js",
+    "start:orig": "fastify start -l info src/app.js",
+    "start": "node dist/index.js",
     "dev": "fastify start -w -l info -P src/app.js"
   },
   "keywords": [
@@ -47,6 +49,7 @@
     "zod": "^4.1.11"
   },
   "devDependencies": {
+    "@tsconfig/node22": "^22.0.2",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.5.2",
     "@types/pg": "^8.15.5",
