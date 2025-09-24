@@ -11,5 +11,5 @@ export const db = new Kysely<DB>({
       connectionString: process.env.DATABASE_URL
     }),
   }),
-  plugins: [new CamelCasePlugin()]
+  // plugins: [new CamelCasePlugin()]
 });

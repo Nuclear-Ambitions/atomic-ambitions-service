@@ -2,7 +2,7 @@ import { Kysely, sql } from "kysely"
 
 export async function up(db: Kysely<any>): Promise<void> {
   await db.schema
-    .createTable("User")
+    .createTable("users")
     .addColumn("id", "uuid", (col) =>
       col.primaryKey().defaultTo(sql`gen_random_uuid()`)
     )
@@ -13,12 +13,12 @@ export async function up(db: Kysely<any>): Promise<void> {
     .execute()
 
   await db.schema
-    .createTable("Account")
+    .createTable("accounts")
     .addColumn("id", "uuid", (col) =>
       col.primaryKey().defaultTo(sql`gen_random_uuid()`)
     )
     .addColumn("userId", "uuid", (col) =>
-      col.references("User.id").onDelete("cascade").notNull()
+      col.references("users.id").onDelete("cascade").notNull()
     )
     .addColumn("type", "text", (col) => col.notNull())
     .addColumn("provider", "text", (col) => col.notNull())
@@ -33,40 +33,40 @@ export async function up(db: Kysely<any>): Promise<void> {
     .execute()
 
   await db.schema
-    .createTable("Session")
+    .createTable("sessions")
     .addColumn("id", "uuid", (col) =>
       col.primaryKey().defaultTo(sql`gen_random_uuid()`)
     )
     .addColumn("userId", "uuid", (col) =>
-      col.references("User.id").onDelete("cascade").notNull()
+      col.references("users.id").onDelete("cascade").notNull()
     )
     .addColumn("sessionToken", "text", (col) => col.notNull().unique())
     .addColumn("expires", "timestamptz", (col) => col.notNull())
     .execute()
 
   await db.schema
-    .createTable("VerificationToken")
+    .createTable("verification_token")
     .addColumn("identifier", "text", (col) => col.notNull())
     .addColumn("token", "text", (col) => col.notNull().unique())
     .addColumn("expires", "timestamptz", (col) => col.notNull())
     .execute()
 
   await db.schema
-    .createIndex("Account_userId_index")
-    .on("Account")
+    .createIndex("accounts_userId_index")
+    .on("accounts")
     .column("userId")
     .execute()
 
   await db.schema
-    .createIndex("Session_userId_index")
-    .on("Session")
+    .createIndex("sessions_userId_index")
+    .on("sessions")
     .column("userId")
     .execute()
 }
 
 export async function down(db: Kysely<any>): Promise<void> {
-  await db.schema.dropTable("Account").ifExists().execute()
-  await db.schema.dropTable("Session").ifExists().execute()
-  await db.schema.dropTable("User").ifExists().execute()
-  await db.schema.dropTable("VerificationToken").ifExists().execute()
+  await db.schema.dropTable("accounts").ifExists().execute()
+  await db.schema.dropTable("sessions").ifExists().execute()
+  await db.schema.dropTable("users").ifExists().execute()
+  await db.schema.dropTable("verification_token").ifExists().execute()
 }
