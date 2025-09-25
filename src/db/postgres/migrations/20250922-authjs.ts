@@ -9,7 +9,6 @@ export async function up(db: Kysely<any>): Promise<void> {
     .addColumn("name", "text")
     .addColumn("email", "text", (col) => col.unique().notNull())
     .addColumn("emailVerified", "timestamptz")
-    .addColumn("image", "text")
     .execute()
 
   await db.schema

@@ -1,4 +1,4 @@
-import type { Kysely } from 'kysely'
+import { Kysely, sql } from 'kysely'
 
 export async function up(db: Kysely<any>): Promise<void> {
   // up migration code goes here...
