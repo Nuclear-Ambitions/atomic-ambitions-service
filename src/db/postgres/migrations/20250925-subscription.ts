@@ -24,8 +24,8 @@ export async function up(db: Kysely<any>): Promise<void> {
     .addColumn('current_period_start', 'timestamptz')
     .addColumn('current_period_end', 'timestamptz')
     .addColumn('cancel_at', 'timestamptz')
-    .addColumn('created_at', 'timestamptz')
-    .addColumn('updated_at', 'timestamptz')
+    .addColumn('created_at', 'timestamptz', (col) => col.defaultTo(sql`now()`).notNull())
+    .addColumn('updated_at', 'timestamptz', (col) => col.defaultTo(sql`now()`).notNull())
     .execute()
 
   await db.schema.createTable('payments')
@@ -34,7 +34,7 @@ export async function up(db: Kysely<any>): Promise<void> {
     .addColumn("stripe_payment_intent_id", "text")
     .addColumn("amount", "float4")
     .addColumn("currency", "text")
-    .addColumn('created_at', 'timestamptz')
+    .addColumn('created_at', 'timestamptz', (col) => col.defaultTo(sql`now()`).notNull())
     .execute()
 
 }

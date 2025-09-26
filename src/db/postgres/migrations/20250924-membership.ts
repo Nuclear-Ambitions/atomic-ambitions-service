@@ -1,12 +1,12 @@
-import { Kysely } from 'kysely'
+import { Kysely, sql } from 'kysely'
 
 export async function up(db: Kysely<any>): Promise<void> {
   await db.schema.alterTable('users')
-    .addColumn("handle", "text")
-    .addColumn("alias", "text")
+    .addColumn("handle", "text", (col) => col.unique())
+    .addColumn("alias", "text", (col) => col.unique())
     .addColumn("full_name", "text")
-    .addColumn("created_at", "timestamptz")
-    .addColumn("updated_at", "timestamptz")
+    .addColumn("created_at", "timestamptz", (col) => col.defaultTo(sql`now()`).notNull())
+    .addColumn("updated_at", "timestamptz", (col) => col.defaultTo(sql`now()`).notNull())
     .execute()
 
   await db.schema.createTable('memberships')
