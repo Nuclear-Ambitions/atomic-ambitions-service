@@ -18,7 +18,7 @@ export async function up(db: Kysely<any>): Promise<void> {
   await db.schema.createTable('subscriptions')
     .addColumn("id", "uuid", col => col.notNull().unique())
     .addColumn("user_id", "uuid", col => col.references('users.id').onDelete('cascade'))
-    .addColumn("product_id", "text", col => col.references('products.id').onDelete('cascade'))
+    .addColumn("product_id", "uuid", col => col.references('products.id').onDelete('cascade'))
     .addColumn("stripe_subscription_id", "text")
     .addColumn("status", "text")
     .addColumn('current_period_start', 'timestamptz')
@@ -30,7 +30,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 
   await db.schema.createTable('payments')
     .addColumn("id", "uuid", col => col.notNull().unique())
-    .addColumn("subscription_id", "text", col => col.references('subscriptions.id').onDelete('cascade'))
+    .addColumn("subscription_id", "uuid", col => col.references('subscriptions.id').onDelete('cascade'))
     .addColumn("stripe_payment_intent_id", "text")
     .addColumn("amount", "float4")
     .addColumn("currency", "text")
