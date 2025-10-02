@@ -17,6 +17,10 @@
     "migrate:up": "bash scripts/migrate.sh up",
     "migrate:down": "bash scripts/migrate.sh down",
     "migrate:latest": "bash scripts/migrate.sh latest",
+    "migrate:prod:latest": "ts-node src/db/postgres/migrate-production.ts latest",
+    "migrate:prod:up": "ts-node src/db/postgres/migrate-production.ts up",
+    "migrate:prod:down": "ts-node src/db/postgres/migrate-production.ts down",
+    "migrate:status": "ts-node src/db/postgres/migrate-production.ts status",
     "generate": "kysely-codegen --dialect=postgres --out-file=./src/db/postgres/types.ts",
     "generate-help": "kysely-codegen --help"
   },

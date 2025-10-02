@@ -7,7 +7,13 @@ const envSchema = {
   properties: {
     API_HOST: { type: 'string' },
     API_PORT: { type: 'number' },
-  }
+    DATABASE_URL: { type: 'string' },
+    NODE_ENV: {
+      type: 'string',
+      enum: ['development', 'staging', 'production']
+    },
+  },
+  required: ['API_HOST', 'API_PORT', 'DATABASE_URL', 'NODE_ENV']
 }
 
 const envPlugin: FastifyPluginAsync = async (fastify, options) => {
