@@ -48,6 +48,12 @@ export interface Payments {
   subscription_id: string | null;
 }
 
+export interface PlayingWithNeon {
+  id: Generated<number>;
+  name: string;
+  value: number | null;
+}
+
 export interface Products {
   currency: string | null;
   id: string;
@@ -102,6 +108,7 @@ export interface DB {
   accounts: Accounts;
   memberships: Memberships;
   payments: Payments;
+  playing_with_neon: PlayingWithNeon;
   products: Products;
   sessions: Sessions;
   subscriptions: Subscriptions;
