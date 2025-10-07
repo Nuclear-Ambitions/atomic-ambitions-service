@@ -10,13 +10,14 @@ export async function up(db: Kysely<any>): Promise<void> {
     .execute()
 
   await db.schema.createTable('memberships')
-    .addColumn('id', 'serial')
+    .addColumn('id', 'serial', col => col.primaryKey())
     .addColumn('user_id', 'uuid', col => col.references('users.id').onDelete('cascade'))
     .addColumn('level', 'text')
     .addColumn('status', 'text')
     .addColumn('agreed_to_terms', 'timestamptz')
     .addColumn('privacy_policy_ok', 'timestamptz')
     .addColumn('joined_at', 'timestamptz')
+    .addColumn('updated_at', 'timestamptz')
     .addColumn('ended_at', 'timestamptz')
     .execute()
 

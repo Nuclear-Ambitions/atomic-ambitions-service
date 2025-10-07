@@ -11,6 +11,18 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
 
 export type Int8 = ColumnType<string, bigint | number | string, bigint | number | string>;
 
+export type Json = JsonValue;
+
+export type JsonArray = JsonValue[];
+
+export type JsonObject = {
+  [x: string]: JsonValue | undefined;
+};
+
+export type JsonPrimitive = boolean | number | string | null;
+
+export type JsonValue = JsonArray | JsonObject | JsonPrimitive;
+
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
 export interface Accounts {
@@ -36,32 +48,14 @@ export interface Memberships {
   level: string | null;
   privacy_policy_ok: Timestamp | null;
   status: string | null;
+  updated_at: Timestamp | null;
   user_id: string | null;
-}
-
-export interface Payments {
-  amount: number | null;
-  created_at: Generated<Timestamp>;
-  currency: string | null;
-  id: string;
-  stripe_payment_intent_id: string | null;
-  subscription_id: string | null;
 }
 
 export interface PlayingWithNeon {
   id: Generated<number>;
   name: string;
   value: number | null;
-}
-
-export interface Products {
-  currency: string | null;
-  id: string;
-  interval: string | null;
-  name: string | null;
-  price: number | null;
-  stripe_price_id: string | null;
-  stripe_product_id: string | null;
 }
 
 export interface Sessions {
@@ -71,15 +65,27 @@ export interface Sessions {
   userId: string;
 }
 
-export interface Subscriptions {
+export interface StripeSessions {
+  id: string;
+  payload: Json | null;
+}
+
+export interface StripeSubscriptions {
+  amount: number | null;
   cancel_at: Timestamp | null;
   created_at: Generated<Timestamp>;
+  currency: string | null;
   current_period_end: Timestamp | null;
   current_period_start: Timestamp | null;
+  customer_email: string | null;
   id: string;
+  interval: string | null;
+  payment_status: string | null;
+  price_id: string | null;
   product_id: string | null;
   status: string | null;
-  stripe_subscription_id: string | null;
+  stripe_customer_id: string | null;
+  total_amount: number | null;
   updated_at: Generated<Timestamp>;
   user_id: string | null;
 }
@@ -107,11 +113,10 @@ export interface VerificationToken {
 export interface DB {
   accounts: Accounts;
   memberships: Memberships;
-  payments: Payments;
   playing_with_neon: PlayingWithNeon;
-  products: Products;
   sessions: Sessions;
-  subscriptions: Subscriptions;
+  stripe_sessions: StripeSessions;
+  stripe_subscriptions: StripeSubscriptions;
   users: Users;
   verification_token: VerificationToken;
 }
